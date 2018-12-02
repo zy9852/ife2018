@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+    <style type="text/css">
+        table td {
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+    <h2>一、十进制转二进制</h2>      
+    <input id="dec-number" type="number" placeholder="输入一个十进制非负整数">
+    <input id="bin-bit" type="number" placeholder="输入转化后二进制数字位数">
+    <button id="trans-btn">转化为二进制</button>
+    <p id="result">运算结果</p>
+
+    <h2>二、3的小游戏:从1到100，以此在console输出各数字，但是，当数字为3的倍数或者含有3的时候，输出“PA”</h2>
+    <p>按F12，在console窗口查看结果</p>
+
+     <h2>三、生成二十阶以内乘法表：</h2>
+    <input type="number" min="1" max="20" id="inputNum">
+    <button id="newTable">生成</button>
+    <p>二十阶以内</p>
+    <table id="tb"></table>
+    <script>
+        var btn = document.getElementById('trans-btn');
+        var result = document.getElementById('result');
+        // var bit = document.getElementById('bin-bit');
+        function dec2bin(decNumber) {
+            // 在这里实现你的转化方法，注意需要判断输入必须为一个非负整数
+            var bit = document.getElementById('bin-bit').value;
+            var change,arr = [];
+            while (Math.trunc(decNumber) > 0) {
+                change = Math.trunc(decNumber) % 2;
+                arr.unshift(change);
+                decNumber = Math.trunc(decNumber / 2);
+            }
+            // return arr.join('');
+            if(bit < arr.length) {
+                console.log(new Error('位数过小'));
+                return arr.join(''); 
+            } else {
+                var extr = bit - arr.length;
+                while (extr > 0) {
+                    arr.unshift('0');
+                    extr--;
+                }
+                return arr.join('');
+            }
+        }
+         // 实现党点击转化按钮时，将输入的十进制数字转化为二进制，并显示在result的p标签内
+         btn.onclick = function() {
+            var num = document.getElementById('dec-number').value;
+            result.innerHTML = "运算结果为：" + dec2bin(num);
+        }
+        // Some coding
+
+        //从1到100，以此在console输出各数字，但是，当数字为3的倍数或者含有3的时候，输出“PA”
+        var array = [];
+        for (var i = 1; i < 101; i++) {
+            var flag = i % 3;
+            var str = new String(i);
+            if(flag == 0 || str.includes('3')) {
+                array.push('PA');
+            } else {
+                array.push(i);
+            }
+        }
+        console.log(array.join(','));
+            
+        //乘法表
+        var produce = document.getElementById('newTable');
+         //清除历史生成的表格
+        produce.onclick = function () {
+            var tb = document.querySelector('table');
+            if(tb) {
+                document.body.removeChild(tb);
+            };
+
+        var newTb = document.createElement('table');
+        document.body.appendChild(newTb);
+
+        var val = document.getElementById('inputNum').value;
+        console.log(val);
+        if(val >= 0 && val <= 20) {
+            tableProduce(val);
+        }
+
+        function tableProduce(row) {
+
+            for (var i = 1; i <= row; i++) {
+                var newTr = document.createElement('tr');
+                newTb.appendChild(newTr);
+
+                for( var j = 1; j <= i; j++) {
+                    var res = i * j;
+                    var idx = i * (i - 1) / 2 + j;
+
+                    var newTd = document.createElement('td');
+                    newTr.appendChild(newTd);
+
+                    var tdList = document.querySelectorAll('td');
+                    tdList[idx - 1].innerHTML = `${j}*${i}=${res}`;
+                    console.log(`${j}*${i}=${res}`);
+
+                }
+            }
+        }
+    }
+    </script>
+</body>
+</html>
