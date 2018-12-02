@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>DOM TEXT</title>
+	<style type="text/css">
+        .dis {
+            display: none;
+        }
+        .show {
+        	display: block;
+        }
+        .palette {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .palette li {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+        #fade-btn {
+        	width: 100px;
+        	height: 30px;
+        }
+        .erik {
+        	width: 480px;
+        	height: 480px;
+        	background: url(img/erik.jpg) no-repeat;
+        	background-position: 0 -1px;
+        }
+        
+	</style>
+</head>
+<body>
+	<!-- 打印名字 -->
+	<section>
+		<h2>1.打印名字</h2>
+		<input type="text" id="name">
+		<button id="submit-btn" accesskey="Enter">Submit</button>
+	</section>
+
+	<!-- 隐藏下拉选项 -->
+	<section>
+		<h2>2.隐藏选项</h2>
+		 <label>
+	        <input id="school" name="status" type="radio">
+	        School
+	    </label>
+	    <label>
+	        <input id="company" name="status" type="radio">
+	        Company
+	    </label>
+
+	    <select id="school-select">        
+	        <option>北京邮电大学</option>
+	        <option>黑龙江大学</option>
+	        <option>华中科技大学</option>
+	    </select>
+
+	    <select id="company-select">        
+	        <option>百度</option>
+	        <option>爱奇艺</option>        
+	    </select>
+    </section>
+	
+	<!-- 设置颜色 -->
+    <section>
+		<h2>3.设置颜色</h2>
+    	<ul class="palette">
+        <li style="background-color:crimson"></li>
+        <li style="background-color:bisque"></li>
+        <li style="background-color:blueviolet"></li>
+        <li style="background-color:coral"></li>
+        <li style="background-color:chartreuse"></li>
+        <li style="background-color:darkolivegreen"></li>
+        <li style="background-color:cyan"></li>
+        <li style="background-color:#194738"></li>        
+    </ul>
+
+    <p class="color-picker"></p>
+    </section>
+
+	<!-- 淡入淡出 -->
+    <section>
+    	<h2>4.淡入淡出</h2>
+    	<div id="fade-obj" style="width:300px;height:300px;background:#000;opacity: 1;"></div>
+		<button id="fade-btn">淡出</button>
+    </section>
+	
+	<!-- erik动画 -->
+    <section>
+    	<h2>4.erik动画效果</h2>
+    	<div class="erik"></div>
+    </section>
+
+	<script type="text/javascript">
+		
+		// 第一部分
+		var btn = document.querySelector('button');
+		//打印名字
+		function Print() {
+			var name = document.querySelector('input');
+			console.log(name.value);
+		}
+		//清空文本框
+		function clear() {
+			var name = document.querySelector('input');
+			name.value = "";
+		}
+		btn.onclick = Print;
+		document.onkeydown = function(e) {
+			// var name = document.querySelector('input');
+			e = e || window.event;
+			if(e.keyCode == 13) {
+				Print();
+			}else if (e.keyCode == 27) {
+				clear();
+			}else {
+				return;
+			}
+		}
+
+
+
+		//第二部分
+		var school = document.querySelector('#school');
+		var company = document.querySelector('#company');
+		var schoolSelect = document.querySelector('#school-select');
+		var companySelect = document.querySelector('#company-select');
+
+		school.onclick = function() {
+			if(this.checked) {
+				schoolSelect.setAttribute('class', 'show');
+				companySelect.setAttribute('class', 'dis');
+			}else {
+				schoolSelect.setAttribute('class', 'show');
+			}
+		}
+
+		company.onclick = function() {
+			if(this.checked) {
+				schoolSelect.setAttribute('class', 'dis');
+				companySelect.setAttribute('class', 'show');
+			}else {
+				companySelect.setAttribute('class', 'show');
+			}
+		}
+
+
+		//普通方式
+		// var list = document.querySelectorAll("li");
+  //       for (var i = i = 0, len = list.length; i < len; i++) {
+  //          		list[i].onclick = function(e) {
+  //               var t = e.target;
+  //               var c = t.style.backgroundColor;
+  //               var p = document.querySelector(".color-picker");
+  //               p.innerHTML = c;
+  //               p.style.color = c;
+  //           }
+  //       }
+
+        //事件委托方式
+        var ul = document.querySelector('.palette');
+        ul.onclick = function(e) {
+        	var c = e.target.style.backgroundColor;
+        	var p = document.querySelector('.color-picker');
+        	p.innerHTML = c;
+        	p.style.color = c;
+        }
+
+        var fadeObj = document.querySelector('#fade-obj');
+        var fadeBtn = document.querySelector('#fade-btn');
+        var temp = fadeObj.style.opacity;
+        var num = 0;
+	    function fade() {
+	        this.disabled = true;
+	        if(temp == 1) {
+	        	fadeObj.style.opacity = fadeObj.style.opacity - 0.1;
+	        	// console.log(fadeObj.style.opacity)	
+	        	time1 = setTimeout('fade()',500);
+	        	if(fadeObj.style.opacity == 0) {
+	    			fadeBtn.innerHTML = "淡入";
+	    			clearTimeout(time1);
+	    			temp = 0;
+	    			fadeBtn.disabled = false;
+	    		}
+	        }else if(temp == 0) {
+	        	num += 0.1
+	    		fadeObj.style.opacity = num;
+	        	// console.log(fadeObj.style.opacity)
+	        	time1 = setTimeout('fade()',500);
+	        	if(fadeObj.style.opacity == 1) {
+	    			fadeBtn.innerHTML = "淡出";
+	    			clearTimeout(time1);
+	    			temp = 1;
+	    			fadeBtn.disabled = false;
+	    		}
+	    	
+	        }
+	    }
+       	fadeBtn.addEventListener('click', fade);
+
+
+       	var erik = document.querySelector('.erik');
+       	var height = -1;
+       	// console.log(height);
+
+       	function gif() {
+       		if(height > -7520) {
+       			height -= 480;
+       			
+       		}else if(height <= -7681) {
+       			height = -1;
+       		}
+       		erik.style.backgroundPositionY = height + 'px';
+       		// console.log(height);
+       		var time2 =setTimeout(gif, 200);
+       	}
+       	gif();
+	</script>
+</body>
+</html>
