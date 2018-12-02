@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Simple DOM example</title>
+    <style type="text/css">
+       /*第二种方法*/
+       .highlight {
+          color: white;
+          background-color: black;
+          padding: 10px;
+          width: 250px;
+          text-align: center;
+       }
+    </style>
+  </head>
+  <body>
+      <section>
+        <img src="dinosaur.png" alt="A red Tyrannosaurus Rex: A two legged dinosaur standing upright like a human, with small arms, and a large head with lots of sharp teeth.">
+        <p>Here we will add a link to the <a href="https://www.mozilla.org/">Mozilla homepage</a></p>
+      </section>
+
+      <script type="text/javascript">
+
+        //创建并放置新的节点
+        var link = document.querySelector('a');  //匹配文档中的第一个<a>元素
+        link.textContent = 'Mozilla Developer Network';
+        link.href = 'https://developer.mozilla.org';
+
+        var sect = document.querySelector('section');
+        var para = document.createElement('p');
+        para.textContent = 'We hope you enjoyed the ride.';
+        sect.appendChild(para);
+        var text = document.createTextNode('- the premier source for web development knowledge.');
+        var linkPara = document.querySelector('p');
+        linkPara.appendChild(text);
+
+        //移动和删除元素
+        sect.appendChild(linkPara);
+        //在拥有要删除的节点和其父节点的引用的情况下删除节点
+        // sect.removeChild(linkPara); 
+
+        //删除一个仅基于自身引用的节点
+        linkPara.parentNode.removeChild(linkPara);
+
+        //操作样式
+
+        //第一种方法：直接在想要动态设置样式的元素内部添加内联样式
+        // para.style.color = 'white';
+        // para.style.backgroundColor = 'black';
+        // para.style.padding = '10px';
+        // para.style.width = '250px';
+        // para.style.textAlign = 'center';
+
+        //第二种方法
+        para.setAttribute('class', 'highlight');
+      </script>
+  </body>
+</html>
