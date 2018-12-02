@@ -1,0 +1,37 @@
+* {
+	margin: 0;
+	padding: 0;
+}   /* 清除默认的内外边距*/
+.box {
+	width: 60%；
+	margin: auto; 
+} 
+.resumeBox {
+	/*width: 700px;
+	height: 40px;*/
+	background-color: #666666;
+	color: white;
+}
+.leftMenu {
+	float: left;
+	width: 20%;
+	font-size: 8px;
+	padding-top: 3em;
+	padding-bottom: 3em;
+	text-align: center;
+	background-color: #cccccc;
+	margin-bottom: 1px; 
+}
+.rightMenu {
+	float: right;
+	width: 78%;
+}
+.rowBox {
+	clear: both;
+	height: 100%;
+	border-top: 1px solid #cccccc;
+}
+.contentBox {
+	border-right: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
+}

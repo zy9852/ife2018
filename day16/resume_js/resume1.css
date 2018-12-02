@@ -1,0 +1,20 @@
+.resumeBox {
+	background-color: #00CCFF;
+	padding-left: 20px;
+	padding-top: 40px;
+	padding-right: 20px;
+	width: 80px;
+	float: left;
+	height: 600px;
+}
+.contentBox {
+	width:600px;
+	height:600px; 
+	float:left;
+	padding-left: 30px;
+	padding-top: 20px;
+}
+.box {
+	display: table-cell;
+	vertical-align: middle;
+}
