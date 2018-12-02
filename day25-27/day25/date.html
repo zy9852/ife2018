@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>DATE</title>
+</head>
+<body>
+
+	<p class="para1"></p>
+	<p class="para2"></p>
+
+	<div>
+		
+		<select id="year-select">
+		    <option value="2000">2000</option>
+		    <!-- <option value="2032">2032</option> -->
+		</select>
+		<span>年</span>
+
+		<select id="month-select">
+		    <option value="01">01</option>
+		    <!-- <option value="12">12</option> -->
+		</select>
+		<span>月</span>
+
+		<select id="day-select">
+		    <option value="01">01</option>
+		    <!-- <option value="31">31</option> -->
+		</select>
+		<span>日</span>
+
+		<select id="hour-select">
+		    <option value="0">00</option>
+		    <!-- <option value="23">23</option> -->
+		</select>
+		<span>时</span>
+
+		<select id="minute-select">
+		    <option value="0">00</option>
+		    <!-- <option>59</option> -->
+		</select>
+		<span>分</span>
+
+		<select id="second-select">
+		    <option value="0">00</option>
+		    <!-- <option>59</option> -->
+		</select>
+		<span>秒</span>
+
+		<p id="result-wrapper">现在距离 2001年1月1日星期X HH:MM:SS 还有 X 天 X 小时 X 分 X 秒</p>
+
+	</div>
+	<script type="text/javascript">
+
+		//显示当前时间
+		
+		window.onload = function() {
+			setInterval(function() {
+				// startTime();
+				// getWeek();
+				// getYear();
+				// getMonths();
+				show();
+			}, 1000);
+			composition();
+			console.log(daySelect.firstChild)
+		}
+		
+		var para1 = document.querySelector('.para1');
+		var para2 = document.querySelector('.para2');
+		var thisDay = new Date();
+
+		//当数字小于10时，在前面添零
+		function checkTime(i) {
+			if(i < 10) {
+				i = '0' + i;
+			}
+			return i;
+		}
+
+		//24小时制
+		function Time24() {
+			var today = new Date();
+			
+			var h = today.getHours();
+			var m = today.getMinutes();
+			var s = today.getSeconds();
+
+			h = checkTime(h);
+			m = checkTime(m);
+			s = checkTime(s);
+
+			var time = h + ':' + m + ':' + s;
+
+			return time;
+		}
+
+		//12小时制
+		function Time12() {
+			var today = new Date();
+			var h = today.getHours();
+			var m = today.getMinutes();
+			var s = today.getSeconds();
+			var time;
+			
+			if(h > 12) {
+				h = h - 12;
+				h = checkTime(h);
+				m = checkTime(m);
+				s = checkTime(s);
+				time = h + ':' + m + ':' + s + ' ' + 'PM';
+			} else {
+				h = checkTime(h);
+				m = checkTime(m);
+				s = checkTime(s);
+				time = h + ':' + m + ':' + s + ' ' + 'AM';
+			}
+
+			return time;
+		}
+
+		function getWeek(d) {
+			// var today = new Date();
+			var week = new Array(7);
+			week[0] = '星期日';
+			week[1] = '星期一';
+			week[2] = '星期二';
+			week[3] = '星期三';
+			week[4] = '星期四';
+			week[5] = '星期五';
+			week[6] = '星期六';
+
+			weekday = week[d];
+			
+			return weekday;
+		}
+
+		function getEngWeek() {
+			var today = new Date();
+			var week = new Array(7);
+			week[0] = 'Sunday';
+			week[1] = 'Monday';
+			week[2] = 'Tuesday';
+			week[3] = 'Wednesday';
+			week[4] = 'Thursday';
+			week[5] = 'Friday';
+			week[6] = 'Saturday';
+
+			weekday = week[today.getDay()];
+			
+			return weekday;
+		}
+
+		function getYear() {
+			var today = new Date();
+			var y = today.getFullYear();
+			var mon = getMonths();
+			var d = today.getDate();
+
+			mon = checkTime(mon);
+			d = checkTime(d);
+
+			var date1 = y + '年' + mon + '月' + d + '日';
+			var date2 = y + '-' + mon + '-' + d;
+			var date = new Array(2);
+			date[0] = date1;
+			date[1] = date2;
+			return date;
+		}
+
+		function getMonths() {
+			var today = new Date();
+			var month = new Array(12);
+
+			month[0] = 1;
+			month[1] = 2;
+			month[2] = 3;
+			month[3] = 4;
+			month[4] = 5;
+			month[5] = 6;
+			month[6] = 7;
+			month[7] = 8;
+			month[8] = 9;
+			month[9] = 10;
+			month[10] = 11;
+			month[11] = 12;
+
+			return month[today.getMonth()];
+		}
+
+		
+		function show() {
+			var year = getYear();
+			var year1 = year[0];
+			var year2 = year[1];
+			var week = getWeek(thisDay.getDay());
+			var engWeek = getEngWeek();
+			var time24 = Time24();
+			var time12 = Time12();
+
+			para1.innerHTML = year1 + ' ' + week + ' ' + time24;
+			para2.innerHTML = year2 + ' ' + engWeek + ' ' +time12;
+		}
+
+
+		//计算时间差
+		
+		var div = document.querySelector('div');
+		var yearSelect = document.querySelector('#year-select');
+		var monthSelect = document.querySelector('#month-select');
+		var daySelect = document.querySelector('#day-select');
+		var hourSelect = document.querySelector('#hour-select');
+		var minuteSelect = document.querySelector('#minute-select');
+		var secondSelect = document.querySelector('#second-select');
+		var resultWrapper = document.querySelector('#result-wrapper');
+		var crtYear,crtMonth,crtDay,crtHour,crtMinute,crtSecond;
+		var selectedDate = new Date();
+		var arr = [];
+
+		//select变化时获取选中值
+		div.onchange = function() {
+			composeDay();
+			currentTime();
+		}
+		
+		//补齐option
+		function composeChild(s, e, p) {
+			for(var i = s + 1; i < e; i++) {
+				var option = document.createElement('option');
+				option.setAttribute('value', i);
+				if(i < 10) {
+					i = '0' + i;
+				}
+				option.innerHTML = i;
+				p.appendChild(option);
+			}
+		}
+
+		//补齐所有select
+		function composition() {
+			composeChild(2000, 2033, yearSelect);
+			composeChild(1, 13, monthSelect);
+			// composeChild(1, 32, daySelect);
+			composeChild(0, 24, hourSelect);
+			composeChild(0, 60, minuteSelect);
+			composeChild(0, 60, secondSelect);
+		}
+
+		//获取选中值
+		function getSelect(e) {
+			var options = e.querySelectorAll('option');
+			for(var i = 0; i < options.length; i++) {
+				if(options[i].selected) {
+					// console.log(options[i].value)
+					return options[i].value;	
+				}
+			}
+		}
+
+		//获取所选时间
+		function currentTime() {
+			crtYear = getSelect(yearSelect);
+			crtMonth = getSelect(monthSelect);
+			crtDay = getSelect(daySelect);
+			crtHour = getSelect(hourSelect);
+			crtMinute = getSelect(minuteSelect);
+			crtSecond = getSelect(secondSelect);
+			selectedDate = setTime(crtYear, crtMonth, crtDay, crtHour,crtMinute, crtSecond);
+			arr = calculate(selectedDate);
+
+			resultWrapper.innerHTML = '现在距离 ' + crtYear + '年' + crtMonth + '月' + crtDay + '日' + ' ' + getWeek(selectedDate.getDay()) + ' ' + crtHour + ':' + crtMinute + ':' + crtSecond + ' ' + arr[0] + arr[1] + '天' + arr[2] + '小时' + arr[3] + '分' + arr[4] + '秒';
+		}
+
+		//根据月份填充天数
+		function composeDay() {
+			var year = getSelect(yearSelect);
+			var month = getSelect(monthSelect);
+			if((year % 400 == 0 || year % 4 == 0) && month ==2) {
+				composeChild(1, 30, daySelect);
+			}else {
+				composeChild(1, getMonth(month) + 1,daySelect);
+			}
+		}
+
+		//给每个月的天数赋值
+		function getMonth(m) {
+			var month = new Array(12);
+
+			month[0] = 31;
+			month[1] = 28;
+			month[2] = 31;
+			month[3] = 30;
+			month[4] = 31;
+			month[5] = 30;
+			month[6] = 31;
+			month[7] = 31;
+			month[8] = 30;
+			month[9] = 31;
+			month[10] = 30;
+			month[11] = 31;
+
+			return month[m - 1];
+		}
+
+		//设定选中时间
+		function setTime(y, mon, d, h, min, s) {
+			selectedDate.setFullYear(y, mon - 1, d);
+			selectedDate.setHours(h);
+			selectedDate.setMinutes(min);
+			selectedDate.setSeconds(s);
+			return selectedDate;
+		}
+
+		// 计算时间差
+		function calculate(d) {
+			var selected = selectedDate.getTime();
+			var now = thisDay.getTime();	//距离1970年的毫秒数
+			var result = Math.abs(now - selected);
+
+			if(now > selected) {
+				arr[0] = '已经过去';
+			}else {
+				arr[0] = '还有';
+			}
+
+			arr[1] = parseInt(result / (1000 * 60 * 60 * 24));	//天
+			arr[2] = parseInt(result / (1000 * 60 * 60));	//小时
+			arr[3] = parseInt(result / (1000 * 60));	//分种
+			arr[4] = parseInt(result / 1000);	//秒
+
+			return arr;
+		}
+
+	</script>
+</body>
+</html>
