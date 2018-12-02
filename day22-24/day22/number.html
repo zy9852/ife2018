@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>DAY 22</title>
+</head>
+<body>
+	<div>
+    <label>Number A:<input id="radio-a" type="radio" name="math-obj" value="a"></label><input id="num-a" type="text">
+    <label>Number B:<input id="radio-b" type="radio" name="math-obj" value="b"></label><input id="num-b" type="text">
+</div>
+<div>
+    <button class="isNumber">判断当前选中的输入框输入内容是否为数字</button>
+    <button class="round">把 A 四舍五入为 B 个小数位数的数字</button>
+    <button class="absolute">当前选中数字的绝对值</button>
+    <button class="upRound">对当前选中的数字进行上舍入</button>
+    <button class="downRound">对当前选中的数字进行下舍入</button>
+    <button class="close">把当前选中的数字四舍五入为最接近的整数</button>
+    <button class="max">返回 A 和 B 中的最高值</button>
+    <button class="min">返回 A 和 B 中的最低值</button>        
+</div>
+<p id="result"></p>
+
+
+<script type="text/javascript">
+	
+	var radioA = document.querySelector('#radio-a');
+	var inputA = document.querySelector('#num-a');
+	var radioB = document.querySelector('#radio-b');
+	var inputB = document.querySelector('#num-b');
+	var para = document.querySelector('#result');
+	var isNumberBtn = document.querySelector('.isNumber');
+	var roundBtn = document.querySelector('.round');
+	var absoluteBtn = document.querySelector('.absolute');
+	var upRoundBtn = document.querySelector('.upRound');
+	var downRoundBtn = document.querySelector('.downRound');
+	var closeBtn = document.querySelector('.close');
+	var maxBtn = document.querySelector('.max');
+	var minBtn = document.querySelector('.min');
+
+	function isNumber() {
+		if(radioA.checked) {
+			var flag = isNaN(inputA.value);
+			if(flag == true) {
+				console.log(Error('非数字！'));
+				para.innerHTML = "非数字！";
+			}else if(flag == false) {
+				console.log("是数字！");
+				para.innerHTML = "是数字！";
+			}
+		}else if(radioB.checked) {
+			var flag = isNaN(inputB.value);
+			if(flag == true) {
+				console.log(Error('非数字！'));
+				para.innerHTML = "非数字！";
+			}else if(flag == false) {
+				console.log("是数字！");
+				para.innerHTML = "是数字！";
+			}
+		}
+
+	}
+
+	isNumberBtn.onclick = isNumber;
+
+	function round() {
+		var A = parseFloat(inputA.value);
+		para.innerHTML = A.toFixed(parseInt(inputB.value));
+	}
+
+	roundBtn.addEventListener('click', round);
+
+	function absolute() {
+		if(radioA.checked) {
+			var flag = isNaN(inputA.value);
+			if(flag == true) {
+				console.log(Error('非数字！'));
+				para.innerHTML = " ";
+			}else if(flag == false) {
+				var abs = Math.abs(inputA.value);
+				para.innerHTML = abs;
+			}
+		}else if(radioB.checked) {
+			var flag = isNaN(inputB.value);
+			if(flag == true) {
+				console.log(Error('非数字！'));
+				para.innerHTML = " ";
+			}else if(flag == false) {
+				var abs = Math.abs(inputB.value);
+				para.innerHTML = abs;
+			}
+		}
+	}
+
+	absoluteBtn.onclick = absolute;
+
+	function upRound() {
+		if(radioA.checked) {
+			var flag = isNaN(inputA.value);
+			if(flag == true) {
+				console.log(Error('非数字！'));
+				para.innerHTML = " ";
+			}else if(flag == false) {
+				var ceil = Math.ceil(inputA.value);
+				para.innerHTML = ceil;
+			}
+		}else if(radioB.checked) {
+			var flag = isNaN(inputB.value);
+			if(flag == true) {
+				console.log(Error('非数字！'));
+				para.innerHTML = " ";
+			}else if(flag == false) {
+				var ceil = Math.ceil(inputB.value);
+				para.innerHTML = ceil;
+			}
+		}
+	}
+
+	upRoundBtn.onclick = upRound;
+
+	function downRound() {
+		if(radioA.checked) {
+			var flag = isNaN(inputA.value);
+			if(flag == true) {
+				console.log(Error('非数字！'));
+				para.innerHTML = " ";
+			}else if(flag == false) {
+				var floor = Math.floor(inputA.value);
+				para.innerHTML = floor;
+			}
+		}else if(radioB.checked) {
+			var flag = isNaN(inputB.value);
+			if(flag == true) {
+				console.log(Error('非数字！'));
+				para.innerHTML = " ";
+			}else if(flag == false) {
+				var floor = Math.floor(inputB.value);
+				para.innerHTML = floor;
+			}
+		}
+	}
+
+	downRoundBtn.onclick = downRound;
+
+	function close() {
+		if(radioA.checked) {
+			var flag = isNaN(inputA.value);
+			if(flag == true) {
+				console.log(Error('非数字！'));
+				para.innerHTML = " ";
+			}else if(flag == false) {
+				var round = Math.round(inputA.value);
+				para.innerHTML = round;
+			}
+		}else if(radioB.checked) {
+			var flag = isNaN(inputB.value);
+			if(flag == true) {
+				console.log(Error('非数字！'));
+				para.innerHTML = " ";
+			}else if(flag == false) {
+				var round = Math.round(inputB.value);
+				para.innerHTML = round;
+			}
+		}
+	}
+
+	closeBtn.onclick = close;
+
+	function max() {
+		if(inputA.value != null || inputB.value != null) {
+			var flag1 = isNaN(inputA.value);
+			var flag2 = isNaN(inputB.value);
+			if(flag1 == true || flag2 == true){
+				console.log(Error('非数字'));
+				para.innerHTML = "";
+			}else {
+				var max = Math.max(inputA.value, inputB.value);
+				para.innerHTML = max;
+			}
+
+		}
+	}
+
+	maxBtn.onclick = max;
+
+	function min() {
+		if(inputA.value != null || inputB.value != null) {
+			var flag1 = isNaN(inputA.value);
+			var flag2 = isNaN(inputB.value);
+			if(flag1 == true || flag2 == true){
+				console.log(Error('非数字'));
+				para.innerHTML = "";
+			}else {
+				var min = Math.min(inputA.value, inputB.value);
+				para.innerHTML = min;
+			}
+		}
+	}
+
+	minBtn.onclick = min;
+</script>
+</body>
+</html>

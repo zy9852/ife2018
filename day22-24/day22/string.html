@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<div>
+    <label>String A:
+        <input id="radio-a" type="radio" checked="true" name="str-obj" value="a">
+    </label>
+    <textarea id="str-a"></textarea>
+    <label>String B:
+        <input id="radio-b" type="radio" name="str-obj" value="b">
+    </label>
+    <textarea id="str-b"></textarea>        
+    <label>Num A：<input id="num-a" type="number" value="0"></label>
+    <label>Num B：<input id="num-b" type="number" value="1"></label>
+</div>
+<div>
+    <button class="length">获取当前选中输入的内容长度</button>
+    <button class="third">当前选中输入中的第3个字符</button>
+    <button class="concat">把两个输入框的文字连接在一起输出（concat）</button>
+    <button class="indexOf">输入B中的内容，在输入A的内容中第一次出现的位置（indexOf）</button>
+    <button class="lastIndexOf">输入A中的内容，在输入B的内容中最后一次出现的位置（lastIndexOf）</button>
+    <button class="slice">使用slice获取选中输入框内容的部分内容，参数为num-a及num-b</button>
+    <button class="row">当前选中输入框的行数</button>
+    <button class="substr">使用substr获取选中输入框内容的子字符串，参数为num-a及num-b</button>
+    <button class="toUpper">把所选输入框中的内容全部转为大写</button>
+    <button class="toLower">把所选输入框中的内容全部转为小写</button>
+    <button class="clear">把所选输入框中内容的半角空格全部去除</button>
+    <button class="replace">把所选输入框中内容的a全部替换成另外一个输入框中的内容</button>
+</div>
+<p id="result"></p>
+
+<script type="text/javascript" charset="utf-8" async defer>
+	
+	var radioA = document.querySelector('#radio-a');
+	var strA = document.querySelector('#str-a');
+	var radioB = document.querySelector('#radio-b');
+	var strB = document.querySelector('#str-b');
+	var numA = document.querySelector('#num-a');
+	var numB = document.querySelector('#num-b');
+	var para = document.querySelector('#result');
+
+	var lengthBtn = document.querySelector('.length');
+	var thirdBtn = document.querySelector('.third');
+	var concatBtn = document.querySelector('.concat');
+	var indexOfBtn = document.querySelector('.indexOf');
+	var lastIndexOfBtn = document.querySelector('.lastIndexOf');
+	var sliceBtn = document.querySelector('.slice');
+	var rowBtn = document.querySelector('.row');
+	var substrBtn =document.querySelector('.substr');
+	var toUpperBtn = document.querySelector('.toUpper');
+	var toLowerBtn = document.querySelector('.toLower');
+	var clearBtn = document.querySelector('.clear');
+	var replaceBtn = document.querySelector('.replace');
+
+	function length() {
+		if(radioA.checked) {
+			para.innerHTML = strA.value.length;
+		}else if(radioB.checked) {
+			para.innerHTML = strB.value.length;
+		}
+	}
+
+	function third() {
+		if(radioA.checked) {
+			para.innerHTML = strA.value.charAt(2);
+		}else if(radioB.checked) {
+			para.innerHTML = strB.value.charAt(2);
+		}
+	}
+
+	function concat() {
+		para.innerHTML = strA.value.concat(strB.value);
+	}
+
+	function indexOf() {
+		para.innerHTML = strA.value.indexOf(strB.value);
+	}
+
+	function lastIndexOf() {
+		para.innerHTML = strB.value.lastIndexOf(strA.value);
+	}
+
+	function slice() {
+		if(radioA.checked) {
+			para.innerHTML = strA.value.slice(numA.value, numB.value);
+		}else if(radioB.checked) {
+			para.innerHTML = strB.value.slice(numA.value, numB.value);
+		}
+	}
+
+	function row() {
+		if(radioA.checked) {
+			para.innerHTML = strA.value.split(/\r?\n|\r/).length;
+		}else if(radioB.checked) {
+			para.innerHTML = strB.value.split(/\r?\n|\r/).length;
+		}
+	}
+
+	function substr() {
+		if(radioA.checked) {
+			para.innerHTML = strA.value.substr(numA.value, numB.value);
+		}else if(radioB.checked) {
+			para.innerHTML = strB.value.substr(numA.value, numB.value);
+		}
+	}
+
+	function toUpper() {
+		if(radioA.checked) {
+			para.innerHTML = strA.value.toUpperCase();
+		}else if(radioB.checked) {
+			para.innerHTML = strB.value.toUpperCase();
+		}
+	}
+
+	function toLower() {
+		if(radioA.checked) {
+			para.innerHTML = strA.value.toLowerCase();
+		}else if(radioB.checked) {
+			para.innerHTML = strB.value.toLowerCase();
+		}
+	}
+
+	function clear() {
+		var str1 = '';
+		var str2 = '';
+		if(radioA.checked) {
+			while(strA.value.indexOf(' ') != -1) {
+				loca = strA.value.indexOf(' ');
+				str1 = strA.value.slice(0, loca);
+				str2 = strA.value.slice(loca + 1, strA.value.length);
+				strA.value = str1 + str2;
+			}
+			para.innerHTML = strA.value;
+
+		}else if(radioB.checked) {
+			while(strB.value.indexOf(' ') != -1) {
+				loca = strB.value.indexOf(' ');
+				str1 = strB.value.slice(0, loca);
+				str2 = strB.value.slice(loca + 1, strB.value.length);
+				strB.value = str1 + str2;
+			}
+			para.innerHTML = strB.value;
+
+		}
+	}
+
+	function replace() {
+		para.innerHTML = strA.value.replace(/a/g, strB.value);
+	}
+
+	lengthBtn.onclick = length;
+	thirdBtn.onclick = third;
+	concatBtn.onclick = concat;
+	indexOfBtn.onclick = indexOf;
+	lastIndexOfBtn.onclick = lastIndexOf;
+	sliceBtn.onclick = slice;
+	rowBtn.onclick = row;
+	substrBtn.onclick = substr;
+	toUpperBtn.onclick = toUpper;
+	toLowerBtn.onclick = toLower;
+	clearBtn.onclick = clear;
+	replaceBtn.onclick = replace;
+
+
+
+	/*实现一个字符串头尾去除空格的函数
+	注意需要去除的空格，包括全角、半角空格
+	暂时不需要学习和使用正则表达式的方式
+	*/
+	function diyTrim(str) {
+	    var result = "";
+	    while(str.charAt(0) == ' ' || str.charAt(str.length-1) == ' ') {
+		    if(str.charAt(0) == ' ') {
+				result = str.slice(1, str.length);
+		    	str = result;
+		   	}
+		   	if(str.charAt(str.length-1) == ' ') {
+		   		result = str.slice(0, str.length-1);
+		   		str = result;
+	    	}
+		}
+	    return result;
+	 
+
+		// var whitePlace = new String('\t\n\r');
+		// if(whitePlace.indexOf(str.charAt(0)) != -1) {
+		// 	var j =0,i = str.length;
+		// 	while(j < i && whitePlace.indexOf(str.charAt(j)) != -1) {
+		// 		j++;
+		//  	}
+		//  	str = str.substring(j,i);
+		// }
+		// if(whitePlace.indexOf(str.charAt(str.length-1)) != -1) {
+		// 	var i = str.length;
+		// 	while(i > 0 && whitePlace.indexOf(str.charAt(i - 1)) != -1) {
+		// 		i--;
+		//  	}
+		//  	str = str.substring(0,i);
+		// }
+		// return str;
+	}
+
+	// 测试用例
+	console.log(diyTrim(' a f b    ')); // ->a f b
+	console.log(diyTrim('    ffdaf    ')); // ->ffdaf
+	console.log(diyTrim('1    ')); // ->1
+	console.log(diyTrim('  f')); // ->f
+	console.log(diyTrim('     a f b 　　 ')); // ->a f b
+	console.log(diyTrim(' ')); // ->
+	console.log(diyTrim('　')); // ->
+	console.log(diyTrim('')); // ->
+
+	/*
+	去掉字符串str中，连续重复的地方
+	*/
+	function removeRepetition(str) {
+	    var result = "";
+	    var str1 = str.split(''), str2 = [];
+	    var j = 0;
+	    for(var i = 0; i < str1.length; i++) {
+	    	if(str1[i] != str2[j]) {
+	    		j++;
+	    		str2[j] = str1[i];
+	    	}
+	    }
+	    result = (str2.toString()).replace(/,/g,'');
+	    return result;
+
+	}
+
+	// 测试用例
+	console.log(removeRepetition("aaa")); // ->a
+	console.log(removeRepetition("abbba")); // ->aba
+	console.log(removeRepetition("aaabbaabb")); // ->abab
+	console.log(removeRepetition("")); // ->
+	console.log(removeRepetition("abc")); // ->abc
+
+</script>
+</body>
+</html>

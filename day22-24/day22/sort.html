@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style type="text/css" media="screen">
+	
+</style>
+</head>
+<body>
+    
+    <script>
+    	var arr1 = [43, 54, 4, -4, 84, 100, 58, 27, 140];
+    	var arr2 = ['apple', 'dog', 'cat', 'car', 'zoo', 'orange', 'airplane'];
+    	var arr3 = [[10, 14], [16, 60], [7, 44], [26, 35], [22, 63]];
+    	var arr4 = [
+		    {
+		        id: 1,
+		        name: 'candy',
+		        value: 40
+		    }, {
+		        id: 2,
+		        name: 'Simon',
+		        value: 50
+		    }, {
+		        id: 3,
+		        name: 'Tony',
+		        value: 45
+		    }, {
+		        id: 4,
+		        name: 'Annie',
+		        value: 60
+		    }
+		];
+
+		function formLToS(a,b) {
+			return a - b;
+		}
+
+		function fromSToL(a,b) {
+			return b - a;
+		}
+
+		console.log('arr1:' + arr1.join());
+		console.log('从大到小排序：' + arr1.sort(fromSToL));
+		console.log('从小到大排序：' + arr1.sort(formLToS));
+
+		console.log('arr2:' + arr2.join());
+		console.log('从a-z排序：' + arr2.sort());
+		console.log('从z-a排序：' + arr2.reverse());
+
+		console.log('arr3:' + arr3);
+		console.log('二维数组第二个元素从大到小排序：' + arr3.sort(function(a,b) {
+			return b[1] - a[1];
+		}));
+
+		console.log('arr4:');
+		console.log(arr4);
+		console.log('元素对象的value值从小到大排序：');
+		console.log(arr4.sort(function(a,b) {
+			return a.value - b.value;
+		}));
+		
+    </script>
+</body>
+</html>

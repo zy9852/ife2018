@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style type="text/css" media="screen">
+	
+</style>
+</head>
+<body>
+	<h2>1.队列</h2>
+    <input id="queue-input" type="text">
+	<p id="queue-cont">队列内容：apple-&gt;pear</p>    
+	<button id="in-btn">入队</button>
+	<button id="out-btn">出队</button>
+	<button id="font-btn">打印队头元素内容</button>
+	<button id="empty-btn">判断队列是否为空</button>
+
+	<h2>2.栈</h2>
+	<input id="stack-input" type="text">
+	<p id="stack-cont">栈内容：applelt;-pear</p>    
+	<button id="push-btn">进栈</button>
+	<button id="pop-btn">退栈</button>
+	<button id="stack-font-btn">打印栈顶元素内容</button>
+	<button id="stack-empty-btn">判断栈是否为空</button>
+
+	<script>
+		// 队列
+		var queue = ["apple", "pear"];
+
+		var queueInput = document.querySelector('#queue-input');
+		var queueCont = document.querySelector('#queue-cont');
+		var inBtn = document.querySelector('#in-btn');
+		var outBtn = document.querySelector('#out-btn');
+		var fontBtn = document.querySelector('#font-btn');
+		var emptyBtn = document.querySelector('#empty-btn');
+
+		//在队列中插入一个队列元素称为入队，进行插入操作的端称为队尾，队列只允许在表的后端进行插入操作
+		inBtn.onclick = function() {
+			if(queueInput.value == '') {
+				return false;
+			}else {
+				queue.unshift(queueInput.value);
+				queueCont.innerHTML = '队列内容：' + queue.join('-&gt;');
+			}
+		}
+		
+		//在队列中删除一个一个队列元素称为出队，进行删除操作的端称为队头，队列只允许在表的前端进行删除操作
+		outBtn.onclick = function() {
+			queue.pop();
+			queueCont.innerHTML = '队列内容：' + queue.join('-&gt;');
+		}
+
+		fontBtn.onclick = function() {
+			queueCont.innerHTML = '队列内容：' + queue[queue.length-1];
+		}
+
+		emptyBtn.onclick = function() {
+			if(queue.length == 0) {
+				queueCont.innerHTML = '队列为空！';
+			}else {
+				queueCont.innerHTML = '队列不为空！';
+			}
+		}
+
+	
+		//栈
+		
+		var stack = ["apple","pear"],
+			stackInput = document.querySelector('#stack-input'),
+			stackCont = document.querySelector('#stack-cont'),
+			pushBtn = document.querySelector('#push-btn'),
+			popBtn = document.querySelector('#pop-btn'),
+			stackFontBtn = document.querySelector('#stack-font-btn'),
+			stackEmptyBtn = document.querySelector('#stack-empty-btn');
+
+		//栈允许在同一端进行插入和删除操作，进行插入和删除操作一端称为栈顶，另一端称为栈底，栈顶浮动，栈底固定。
+		pushBtn.onclick = function() {
+			if(stackInput.value == '') {
+				return false;
+			}else {
+				stack.unshift(stackInput.value);
+				stackCont.innerHTML = '栈内容：' + stack.join('-&gt;');
+			}
+		}
+
+		popBtn.onclick = function() {
+			stack.shift();
+			stackCont.innerHTML = '栈内容：' + stack.join('-&gt;');
+		}
+
+		stackFontBtn.onclick = function() {
+			stackCont.innerHTML = '栈顶内容：' + stack[0];
+		}
+
+		stackEmptyBtn.onclick = function() {
+			if(stack.length == 0) {
+				stackCont.innerHTML = '栈为空';
+			}else {
+				stackCont.innerHTML = '栈不为空';
+			}
+		}
+
+	</script>
+</body>
+</html>
